@@ -4,8 +4,8 @@ pipeline {
   stage('Docker Build and Tag') {
            steps {
               
-                sh 'docker build -t shram/dockerhub_shramik:latest .'
-                sh 'docker tag shram/dockerhub_shramik:latest shram/dockerhub_shramik:$BUILD_NUMBER'
+                sh 'docker build -t groot049/test1:latest .'
+                sh 'docker tag groot049/test1:latest groot049/test1:$BUILD_NUMBER'
           }
         }
      
@@ -13,7 +13,7 @@ pipeline {
           
             steps {
         withDockerRegistry([ credentialsId: "dockerhub", url: "" ]) {
-          sh  'docker push shram/dockerhub_shramik:$BUILD_NUMBER'
+          sh  'docker push groot049/test1:$BUILD_NUMBER'
         }
                   
         }
