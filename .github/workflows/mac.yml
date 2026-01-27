@@ -1,0 +1,29 @@
+name: Docker Build & Run (macOS)
+
+on:
+  push:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+jobs:
+  docker:
+    runs-on: [self-hosted, Shramiks-MacBook-Pro]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        run: |
+          docker build -t helloworld-app .
+
+      - name: Run Docker container
+        run: |
+          docker run -d -p 8085:80 --name helloworld-container helloworld-app
+
+      - name: Verify container is running
+        run: |
+          docker ps
